@@ -1,14 +1,18 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const studentRoutes = require('./routes/StudentRoutes');
 const cors = require("cors");
 const app = express();
 const formRoutes = require("./routes/FormRoutes");
-const AttendanceRoutes = require("./routes/AttendanceRoutes"); 
-const Atttendance = require("./routes/Atttendance"); 
-const MarkAttendanceRoutes = require("./routes/MarkAttendance"); 
-const userRoutes = require("./routes/UserdataRoutes"); 
+const AttendanceRoutes = require("./routes/AttendanceRoutes");
+const Atttendance = require("./routes/Atttendance");
+const MarkAttendanceRoutes = require("./routes/MarkAttendance");
+const userRoutes = require("./routes/UserdataRoutes");
 const historyRoutes = require('./routes/History');
+
+const DB_URL = process.env.MONGODB_URI;
 
 app.use(cors({
   origin: "http://localhost:5173",  // <-- Frontend origin
@@ -21,16 +25,14 @@ app.use("/api", Atttendance);
 app.use("/api", MarkAttendanceRoutes);
 
 // MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/Tracko", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(DB_URL, {
+  serverSelectionTimeoutMS: 15000,
+  socketTimeoutMS: 45000,
 })
-  .then(() => console.log("MongoDB connected successfully"))
+  .then(() => console.log("✅ MongoDB Atlas connected successfully"))
   .catch(err => {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
+    console.error("❌ Connection error:", err.message);
   });
-
 
 // Use student routes
 app.use('/api/students', studentRoutes);

@@ -14,25 +14,10 @@ const studentSchema = new Schema({
         type: String,
         required: true,
     },
-
-    subject: {
-        type: String,
-        required: true,
-    },
     year: {
         type: String,
         required: true,
     },
-    totalLectures : {
-        type : Number,
-        required : true,
-        default : 0,
-    },
-    attendedLectures : {
-        type : Number,
-        required : true,
-        default : 0,
-    }
 });
 
 module.exports = mongoose.model("Student", studentSchema);

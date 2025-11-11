@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
-const Student = require("./models/Student");
+const Student = require("./models/Student"); 
+require("dotenv").config();
+console.log("Mongo URI loaded:", !!process.env.MONGODB_URI);
 
-mongoose.connect("mongodb://localhost:27017/student", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
+
+// ✅ Sample student data
 const sampleStudents = [
   { rollNo: 1, name: "Aarav Mehta", section: "CSE-A", year: "2nd" },
   { rollNo: 2, name: "Ishita Kapoor", section: "CSE-A", year: "1st" },
@@ -79,13 +82,12 @@ const sampleStudents = [
   { rollNo: 70, name: "Advait Verma", section: "CSE-B", year: "2nd" }
 ];
 
-
 Student.insertMany(sampleStudents)
   .then(() => {
-    console.log("Inserted students successfully");
+    console.log("Sample students inserted successfully!");
     mongoose.connection.close();
   })
   .catch((err) => {
-    console.error("Error inserting students:", err);
+    console.error(" Error inserting students:", err);
     mongoose.connection.close();
   });
