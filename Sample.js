@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 
-// ✅ Sample student data
+//Sample student data
 const sampleStudents = [
   { rollNo: 1, name: "Aarav Mehta", section: "CSE-A", year: "2nd" },
   { rollNo: 2, name: "Ishita Kapoor", section: "CSE-A", year: "1st" },
