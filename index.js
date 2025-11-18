@@ -15,7 +15,7 @@ const historyRoutes = require('./routes/History');
 const DB_URL = process.env.MONGODB_URI;
 
 app.use(cors({
-  origin: "http://localhost:5173",  // <-- Frontend origin
+  origin: "https://attendance-frontend-sooty.vercel.app/",
   credentials: true
 }));
 app.use(express.json());
